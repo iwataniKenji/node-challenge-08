@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  finapi_database:
+    image: postgres
+    container_name: finapi_database
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=kenji153
+      - POSTGRES_PASSWORD=123456789
+      - POSTGRES_DB=fin_api
+    volumes:
+      - pgdata:/data/postgres
+
+  app:
+    build: .
+    container_name: fin_api
+    restart: always
+    ports:
+      - 8888:8888
+    volumes:
+      - .:/usr/app
+    links:
+      - finapi_database
+    depends_on:
+      - finapi_database
+
+volumes:
+  pgdata:
+    driver: local
