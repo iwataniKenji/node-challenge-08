@@ -16,14 +16,14 @@ describe("Authenticate user", () => {
   });
 
   it("should be able to authenticate an user", async () => {
-    const user = await createUserUseCase.execute({
+    const { email } = await createUserUseCase.execute({
       name: "User test",
       email: "Email test",
       password: "Password test",
     });
 
     const result = await authenticateUserUseCase.execute({
-      email: user.email,
+      email,
       password: "Password test",
     });
 

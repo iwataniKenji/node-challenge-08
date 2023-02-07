@@ -16,13 +16,13 @@ describe("Show user profile", () => {
   });
 
   it("should be able to show user profile", async () => {
-    const user = await createUserUseCase.execute({
+    const { id } = await createUserUseCase.execute({
       name: "User test",
       email: "Email test",
       password: "Password test",
     });
 
-    const result = await showUserProfileUseCase.execute(user.id as string);
+    const result = await showUserProfileUseCase.execute(id as string);
 
     expect(result).toHaveProperty("id");
   });
